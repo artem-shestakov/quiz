@@ -1,9 +1,10 @@
 from django.db import models
-from django.utils import timezone
-from django.contrib.auth.models import User
 
 
 class Subject(models.Model):
+    """
+    Quiz subject
+    """
     title = models.CharField(max_length=250)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -15,16 +16,25 @@ class Subject(models.Model):
 
 
 class Question(models.Model):
+    """
+    Subject question
+    """
     text = models.CharField(max_length=250)
     answer = models.CharField(max_length=100)
-    options = models.CharField(max_length=1000)
+    created = models.DateTimeField(auto_now_add=True)
+    Subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='questions')
 
-    def _get_options(self):
-        return self.split()
+    def __str__(self):
+        return self.text
 
-    def _set_options(self, lst: list):
-        self.options = ' '.join(lst)
 
-    def _add_options(self, option: str):
-        options = self._get_options().append(option)
-        self._set_options(options)
+class Option(models.Model):
+    """
+    Answer option of question
+    """
+    text = models.CharField(max_length=250)
+    created = models.DateTimeField(auto_now_add=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='test_question')
+
+    def __str__(self):
+        return self.text
