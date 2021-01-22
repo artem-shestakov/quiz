@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Subject(models.Model):
@@ -20,22 +21,40 @@ class Question(models.Model):
     """
     Subject question
     """
-    text = models.CharField(max_length=250)
-    answer = models.CharField(max_length=100)
+    TYPE = (
+        ('simple', 'Simple'),
+        ('multi_choice', 'Multi choice')
+    )
+
+    STATUS = (
+        ('draft', 'Draft'),
+        ('published', 'Published')
+    )
+
+    text = models.CharField(max_length=250, unique=True)
+    type = models.CharField(max_length=15, choices=TYPE, default='simple')
+    answer = models.CharField(max_length=1250, default='')
+    options = models.CharField(max_length=1250, default='')
     created = models.DateTimeField(default=timezone.now)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='test_subject')
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='subject')
 
     def __str__(self):
         return self.text
 
 
-class Option(models.Model):
+class Test(models.Model):
     """
-    Answer option of question
+    Test with questions
     """
-    text = models.CharField(max_length=250)
-    created = models.DateTimeField(default=timezone.now)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='test_question')
+    STATUS = (
+        ('draft', 'Draft'),
+        ('ready', 'Ready'),
+        ('active', 'Active'),
+        ('finished', 'Finished')
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tests')
+    status = models.CharField(max_length=10, choices=STATUS, default='draft')
+    questions = models.ManyToManyField(Question)
 
     def __str__(self):
-        return self.text
+        return f'{self.user}\' test'

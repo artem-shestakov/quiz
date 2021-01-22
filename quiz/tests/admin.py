@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Subject, Question, Option
+from .models import Subject, Question, Test
 
 
 @admin.register(Subject)
@@ -9,9 +9,11 @@ class SubjectAdmin(admin.ModelAdmin):
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('text', 'answer',)
+    list_display = ('text', 'subject', 'created')
+    list_filter = ('subject', 'created')
 
 
-@admin.register(Option)
-class OptionAdmin(admin.ModelAdmin):
-    list_display = ('text',)
+@admin.register(Test)
+class TestAdmin(admin.ModelAdmin):
+    list_display = ('user', 'status')
+
