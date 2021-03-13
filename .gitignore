@@ -1,11 +1,2 @@
-# IDE files
-.idea
-
-# Virtual environment
-venv
-
-# BD files
-*/db.sqlite3
-
 # Other
-**/__pycache__
+go.sum
