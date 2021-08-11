@@ -25,7 +25,11 @@ func (h *Handler) InitRoute()  *mux.Router{
 	router.Handle("/ping", h.Ping())
 
 	apiVersionOne := router.PathPrefix("/api/v1").Subrouter()
-	apiVersionOne.Handle("/questions", h.CreateQuestion()).Methods("POST")
+	//Questions
+	apiVersionOne.Handle("/question", h.CreateQuestion()).Methods("POST")
+
+	//Answers
+	apiVersionOne.Handle("/answer", h.CreateAnswers()).Methods("POST")
 	return router
 }
 

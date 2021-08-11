@@ -15,7 +15,7 @@ func (h *Handler) CreateQuestion() http.HandlerFunc {
 			fmt.Println(err.Error())
 			return
 		}
-		id, err := h.service.CreateQuestion(question.Type, question.Context)
+		id, err := h.service.CreateQuestion(question.Type, question.Content)
 		if err != nil {
 			fmt.Println(err.Error())
 			return

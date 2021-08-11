@@ -6,6 +6,11 @@ import (
 	_ "github.com/lib/pq"
 )
 
+const (
+	questionsTable = "questions"
+	answersTable = "answers"
+)
+
 type Database struct {
 	Address  string
 	Port     string
