@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Questions:</h2>
+
+{% for question in questions %}
+<form action="/questions" method="post">
+  <p>{{ question.question.content}}</p>
+  {% for answer in question.answers %}
+  <div>
+    <input type="radio" id="{{answer.pk}}" name="{{question.question.pk}}" value="{{answer.pk}}"
+         checked>
+    <label for="{{answer.pk}}">{{answer.content}}</label>
+  </div>
+  {% endfor %}
+  <button class="btn btn-success" type="submit">Check</button>
+</form>
+{% endfor %}
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

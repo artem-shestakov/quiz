@@ -1,12 +1,13 @@
 # IDE files
 .idea
-.env
+.vscode
 
 # Virtual environment
 venv
+.env
 
 # BD files
-*/db.sqlite3
+**/db.sqlite3
 
 # Other
 **/__pycache__
